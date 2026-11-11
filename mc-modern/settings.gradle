@@ -1,0 +1,20 @@
+pluginManagement {
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+rootProject.name = 'onix-modern'
+
+// The modern adapter is its own build, because it needs a newer Loom than the 1.8.9 one
+// and the two cannot share a build. The shared core comes from the main build next door.
+includeBuild('..') {
+	dependencySubstitution {
+		substitute module('onix:core') using project(':core')
+	}
+}

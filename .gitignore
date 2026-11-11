@@ -1,0 +1,25 @@
+# Build output and tool folders: rebuilt from the source, never uploaded.
+.gradle/
+build/
+out/
+run/
+.idea/
+.vs/
+*.iml
+
+# Pictures made while checking the build.
+preview-*.png
+
+# Logs and leftovers.
+*.log
+*.tmp
+*.class
+
+# Sign-in tokens and settings live in the user's own folder, but never upload them by accident.
+launcher.json
+profile.txt
+
+# The menu wallpaper is somebody else's screenshot. It stays out of the public repository
+# until its use is cleared; the client and launcher fall back to a plain dark background without it.
+mc-1.8.9/src/main/resources/assets/onix/textures/background.jpg
+launcher/src/main/resources/onix/background.jpg

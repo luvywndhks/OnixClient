@@ -1,0 +1,26 @@
+pluginManagement {
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		maven {
+			name = 'Ornithe Releases'
+			url = 'https://maven.ornithemc.net/releases'
+		}
+		maven {
+			name = 'Ornithe Snapshots'
+			url = 'https://maven.ornithemc.net/snapshots'
+		}
+		gradlePluginPortal()
+	}
+}
+
+rootProject.name = 'onix-java'
+
+// core: version-independent client (modules, settings, UI). No Minecraft classes.
+include 'core'
+// One thin adapter per Minecraft version.
+include 'mc-1.8.9'
+// The desktop launcher: sign in, settings, install and start the game.
+include 'launcher'

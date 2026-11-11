@@ -1,0 +1,62 @@
+plugins {
+	id 'java'
+}
+
+group = project.maven_group
+version = project.version
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = 'UTF-8'
+	it.options.release = 8
+}
+
+// One runnable jar with Gson inside: java -jar onix-launcher.jar
+jar {
+	archiveBaseName = 'onix-launcher'
+	manifest {
+		attributes 'Main-Class': 'onix.launcher.Main', 'Implementation-Version': project.version
+	}
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
+}
+
+// Builds a Windows program folder: "Onix Client.exe" with its own Java inside, so the
+// player needs nothing installed. Output: launcher/build/dist/Onix Client/
+tasks.register('packageExe', Exec) {
+	dependsOn jar
+	def dist = layout.buildDirectory.dir('dist').get().asFile
+	def staging = layout.buildDirectory.dir('package-input').get().asFile
+	def jarFile = jar.archiveFile.get().asFile
+	doFirst {
+		delete new File(dist, 'Onix Client')
+		delete staging
+		// jpackage copies its whole input folder, so it gets a folder holding only the launcher jar.
+		copy {
+			from jarFile
+			into staging
+		}
+	}
+	// jpackage ships with the JDK that runs Gradle.
+	commandLine "${System.getProperty('java.home')}/bin/jpackage",
+			'--type', 'app-image',
+			'--name', 'Onix Client',
+			'--app-version', project.version,
+			'--vendor', 'Onix',
+			'--input', staging.path,
+			'--main-jar', jarFile.name,
+			'--main-class', 'onix.launcher.Main',
+			'--icon', file('package/onix.ico').path,
+			'--add-modules', 'java.desktop,java.logging,java.sql,jdk.unsupported,jdk.crypto.cryptoki',
+			'--dest', dist.path
+}

@@ -1,0 +1,12 @@
+# The 1.8.9 performance set used by OneClient (Polyfrost/DataStorageV2, Performance bundle).
+# file | url | hash algorithm | hash
+# These are other people's mods. They are downloaded by the player's machine, never bundled into our jar.
+argentum-1.0.3-beta.3.jar | https://github.com/Polyfrost/Argentum/releases/download/v1.0.3-beta.3/argentum-1.0.3-beta.3.jar | SHA-256 | b3b354d87bb5ac569cc34e9dba34d46bde42434cbb3c96879f36bfb00496f698
+argentum-extras-1.0.3-beta.3.jar | https://github.com/Polyfrost/Argentum/releases/download/v1.0.3-beta.3/argentum-extras-1.0.3-beta.3.jar | SHA-256 | 16a516246968b8bf0cb5deee6ab9742fb2fdc5327529226b1a1e6322a4657442
+cera-1.0.3-beta.3.jar | https://github.com/Polyfrost/Argentum/releases/download/v1.0.3-beta.3/cera-1.0.3-beta.3.jar | SHA-256 | 81409ac83ceffe28cac8e2864ae78a27a73dfec3280c0f11ff7b940ee1cf4cf6
+Sarcio-1.2.0-beta.1.jar | https://github.com/Polyfrost/Sarcio/releases/download/v1.2.0-beta.1/Sarcio-1.2.0-beta.1.jar | SHA-256 | c03c4d3212b82a7251db3509e0b38df185feedc9254536ef6ab403bfb556c5f4
+pylon-0.2.7.jar | https://cdn.modrinth.com/data/wx17t6U9/versions/QPGKOis1/pylon-0.2.7.jar | SHA-512 | 367840a56e57e85323e613b9c6615a977d763ed9aefa7a7fbb1bbce01727faa0f43d3c6876ae97e4be3550269d436f85bf3e559e1375dd9fabe4bf62438090e3
+asynclogger-2.2.3+1.8.9-ornithe.jar | https://cdn.modrinth.com/data/zvNzKfGF/versions/LQj9vOzN/asynclogger-2.2.3%2B1.8.9-ornithe.jar | SHA-512 | 95a4cd70e945acced55aa2261640889594d5923720a888ca192fc4f2301f3626b1ab4f58c7a5014c6a0d83db653542209aea4086f7652049a70034b2678e4c6d
+exploint-1.1.0+mc1.8.9.jar | https://cdn.modrinth.com/data/mL0gJygK/versions/tJQcfbYI/exploint-1.1.0%2Bmc1.8.9.jar | SHA-512 | 0b373454ffd89c906e3f7882b331f310fcc14328910a4d0bad564fdfdcc427231750281133cf3ea70b0eff3d508b49555a20b7115fddeced418d17774066669f
+soundfix-1.2.0+mc1.8.9.jar | https://github.com/saadndm/soundfix/releases/download/v1.2.0/soundfix-1.2.0%2Bmc1.8.9.jar | SHA-256 | 93b5bd340bc0dd150f375b9b6bdd2f35600a44d6593a1524cf0ed81d427d5054
+WindowsPriorityBoost-1.0.0.jar | https://cdn.modrinth.com/data/7ZoK90Xo/versions/ZKOItDNB/WindowsPriorityBoost-1.0.0.jar | SHA-512 | ff6d522295a0d80ead6dbce4d7d4823aa07c6e81110b4835e44f884849665d49f675e5a88f08e23b966e76bbd34cc56f5e54d2a66a2fd8fcdd512c880fa5d2d5

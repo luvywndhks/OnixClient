@@ -1,0 +1,23 @@
+plugins {
+	id 'java-library'
+}
+
+group = project.maven_group
+version = project.version
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Minecraft ships Gson on every version we target, so it is never bundled.
+	compileOnly 'com.google.code.gson:gson:2.2.4'
+	testImplementation 'com.google.code.gson:gson:2.2.4'
+	testImplementation 'junit:junit:4.13.2'
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = 'UTF-8'
+	// 1.8.9 runs on Java 8, so the core has to stay Java 8 compatible.
+	it.options.release = 8
+}

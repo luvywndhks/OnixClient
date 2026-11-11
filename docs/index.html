@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onix Client for Java Edition</title>
+<meta name="description" content="A client and launcher for Minecraft: Java Edition, in the style of Lunar and Badlion. A Java Edition remake of Onix Client.">
+<link rel="icon" href="logo.png">
+<style>
+:root {
+	--bg: #0a1220;
+	--card: #101a2c;
+	--line: rgba(255, 255, 255, .09);
+	--text: #eef3f9;
+	--dim: #9fb0c3;
+	--blue: #6cc5f5;
+	--teal: #01d9bb;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+	margin: 0;
+	background: radial-gradient(1200px 600px at 50% -10%, #17406a 0%, var(--bg) 60%) fixed;
+	color: var(--text);
+	font: 16px/1.65 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+a { color: var(--blue); }
+main { max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+.hero { text-align: center; padding: 72px 0 40px; }
+.hero img { width: 112px; height: 112px; }
+.hero h1 { margin: 18px 0 6px; font-size: clamp(34px, 7vw, 56px); letter-spacing: .02em; color: var(--blue); }
+.hero p { margin: 0 auto; max-width: 560px; color: var(--dim); }
+.badge {
+	display: inline-block; margin-top: 18px; padding: 5px 14px; border-radius: 99px;
+	border: 1px solid rgba(1, 217, 187, .45); color: var(--teal); font-size: 13px;
+}
+section { margin-top: 28px; padding: 26px 28px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; }
+h2 { margin: 0 0 10px; font-size: 22px; }
+p { margin: 10px 0; }
+ul { margin: 10px 0; padding-left: 22px; }
+li { margin: 5px 0; }
+code { background: rgba(255, 255, 255, .08); padding: 2px 6px; border-radius: 6px; font-size: .92em; }
+table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 15px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--dim); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; }
+.note { color: var(--dim); font-size: 14px; }
+footer { margin-top: 36px; text-align: center; color: var(--dim); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+	<img src="logo.png" alt="Onix Client logo">
+	<h1>ONIX CLIENT</h1>
+	<p>A client and launcher for Minecraft: Java Edition, in the style of Lunar Client and Badlion Client.
+	A Java Edition remake of Onix Client.</p>
+	<span class="badge">Work in progress</span>
+</header>
+
+<section id="about">
+	<h2>About</h2>
+	<p>Onix Client is a popular client for Minecraft: Bedrock Edition. This project brings its look and its
+	idea to Java Edition: a clean module menu, HUD elements you can move, saved profiles, and a small launcher.
+	It is made with the permission of the Onix Client developers.</p>
+	<p class="note">Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+</section>
+
+<section id="parts">
+	<h2>What is in it</h2>
+	<table>
+		<tr><th>Part</th><th>What it does</th><th>State</th></tr>
+		<tr><td>Client for 1.8.9</td><td>40+ modules, module menu, HUD editor, profiles, performance switches.</td><td>Working</td></tr>
+		<tr><td>Client for modern versions</td><td>The same modules and menu on Minecraft 26.3.</td><td>Early preview</td></tr>
+		<tr><td>Launcher</td><td>One window with account, settings and Microsoft sign-in.</td><td>Sign-in built. Installing and starting the game is not built yet.</td></tr>
+	</table>
+</section>
+
+<section id="signin">
+	<h2>Why it needs the Minecraft services API</h2>
+	<p>The launcher signs players in with their Microsoft account and starts the game with that account.
+	It uses the <strong>device code flow</strong>: it shows a short code, the player enters it on
+	<code>microsoft.com/link</code> in their own browser, and Microsoft hands back a token. The password is never
+	typed into the launcher.</p>
+	<p>The token is then traded, step by step, for an Xbox Live token, an XSTS token and a Minecraft access token,
+	and the launcher reads the player's profile (name and UUID). These are the only calls it makes:</p>
+	<ul>
+		<li><code>login.microsoftonline.com</code> &mdash; Microsoft sign-in</li>
+		<li><code>user.auth.xboxlive.com</code> and <code>xsts.auth.xboxlive.com</code> &mdash; Xbox Live</li>
+		<li><code>api.minecraftservices.com</code> &mdash; Minecraft token and profile</li>
+		<li><code>sessionserver.mojang.com</code> and <code>textures.minecraft.net</code> &mdash; the player's skin, for the head in the corner</li>
+	</ul>
+</section>
+
+<section id="privacy">
+	<h2>Privacy</h2>
+	<ul>
+		<li>No analytics, no telemetry, and no server of our own.</li>
+		<li>The refresh token is stored on the player's own computer, in <code>%APPDATA%\.onixclient\launcher.json</code>, and is sent only to Microsoft. Signing out deletes it.</li>
+		<li>Settings and profiles are files on the player's computer. Nothing is uploaded.</li>
+	</ul>
+</section>
+
+<section id="source">
+	<h2>Source code and contact</h2>
+	<p>The source code is on GitHub: <a href="https://github.com/luvywndhks/OnixClient">github.com/luvywndhks/OnixClient</a>.
+	Questions and problems can be reported on its
+	<a href="https://github.com/luvywndhks/OnixClient/issues">Issues</a> page.</p>
+	<p class="note">Design and module ideas follow <a href="https://onixclient.com">Onix Client</a>.
+	Fabric, Ornithe and Mixin power the mods. Poppins font, SIL Open Font License.
+	Minecraft is a trademark of Mojang AB.</p>
+</section>
+
+<footer>Onix Client for Java Edition</footer>
+
+</main>
+</body>
+</html>

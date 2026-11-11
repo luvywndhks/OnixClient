@@ -1,0 +1,32 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "onix.mc.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"client": [
+		"MinecraftMixin",
+		"GameGuiMixin",
+		"HeldItemRendererMixin",
+		"GameRendererMixin",
+		"InteractionManagerMixin",
+		"NetworkHandlerMixin",
+		"LivingEntityRendererMixin",
+		"WorldRendererMixin",
+		"ClientPlayerMixin",
+		"ParticleManagerMixin",
+		"TextRendererMixin",
+		"ButtonWidgetMixin",
+		"OptionSliderWidgetMixin",
+		"ScreenMixin",
+		"TitleScreenMixin",
+		"ListWidgetMixin",
+		"GameMenuScreenMixin",
+		"ChatGuiMixin",
+		"ItemRendererMixin",
+		"EnchantmentMixin",
+		"StuckArrowLayerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

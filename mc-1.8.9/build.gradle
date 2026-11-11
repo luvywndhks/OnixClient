@@ -1,0 +1,77 @@
+plugins {
+	id 'fabric-loom' version '1.18-SNAPSHOT'
+	id 'ploceus' version '1.18-SNAPSHOT'
+}
+
+base {
+	archivesName = 'onix-client'
+}
+version = "${project.version}+mc${project.minecraft_version}"
+group = project.maven_group
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	mappings ploceus.featherMappings(project.feather_build)
+
+	ploceus.dependOsl(project.osl_version)
+
+	implementation project(':core')
+}
+
+processResources {
+	inputs.property 'version', version
+
+	filesMatching('fabric.mod.json') {
+		expand 'version': version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = 'UTF-8'
+	it.options.release = 8
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+// The core has no Minecraft references, so its classes go straight into the mod jar.
+jar {
+	from project(':core').sourceSets.main.output
+}
+
+// Development runs. ONIX_RUN_JAVA picks the JVM (1.8.9 is happiest on Java 8), and
+// ONIX_CAPTURE makes the game save one frame of the menu to that file and quit.
+tasks.withType(JavaExec).configureEach {
+	def runJava = System.getenv('ONIX_RUN_JAVA')
+	if (runJava) executable = runJava
+	def capture = System.getenv('ONIX_CAPTURE')
+	if (capture) jvmArgs "-Donix.dev.capture=${capture}"
+}
+
+// Downloads the performance mods listed in performance-mods.txt into run/mods, so the
+// dev client can be tested next to them. A file whose hash does not match is deleted.
+tasks.register('installPerformanceMods') {
+	def list = file('performance-mods.txt')
+	def target = file('run/mods')
+	doLast {
+		target.mkdirs()
+		list.readLines().findAll { it.trim() && !it.startsWith('#') }.each { line ->
+			def (name, url, algorithm, hash) = line.split(/\s*\|\s*/).collect { it.trim() }
+			def out = new File(target, name)
+			if (!out.exists()) {
+				new URL(url).withInputStream { input -> out.withOutputStream { it << input } }
+			}
+			def digest = java.security.MessageDigest.getInstance(algorithm)
+			out.eachByte(65536) { bytes, n -> digest.update(bytes, 0, n) }
+			def actual = digest.digest().encodeHex().toString()
+			if (!actual.equalsIgnoreCase(hash)) {
+				out.delete()
+				throw new GradleException("Hash mismatch for ${name}; file removed")
+			}
+			println "ok ${name}"
+		}
+	}
+}
